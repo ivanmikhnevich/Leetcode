@@ -1,4 +1,4 @@
-WITH partitioned AS (
+WITH changed_price AS (
     SELECT
         product_id,
         new_price,
@@ -8,10 +8,11 @@ WITH partitioned AS (
             ORDER BY change_date DESC
         ) AS rn
     FROM Products
-    WHERE change_date <= '2019-08-16'            
+    WHERE change_date <= '2019-08-16'
 )
-SELECT 
-    p.product_id,
-    COALESCE(part.new_price, 10) AS price
-FROM ( SELECT DISTINCT product_id FROM Products ) p
-LEFT JOIN partitioned part ON p.product_id = part.product_id AND part.rn = 1
+SELECT
+    pd.product_id,
+    COALESCE(cp.new_price, 10) AS price
+FROM (SELECT DISTINCT product_id FROM Products) pd
+LEFT JOIN changed_price cp ON pd.product_id = cp.product_id AND rn = 1
+ORDER BY product_id
