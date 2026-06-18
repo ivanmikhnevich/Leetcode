@@ -1,0 +1,32 @@
+class Solution {
+    public int romanToInt(String s) {
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int a = suitDetermination(s.charAt(i));
+            if (i + 1 < s.length()) {
+                int b = suitDetermination(s.charAt(i + 1));
+                if (a < b) {
+                    result -= a; // Если текущее значение меньше следующего, вычитаем
+                } else {
+                    result += a; // Иначе добавляем
+                }
+            } else {
+                result += a; // Добавляем последнее значение
+            }
+        }
+        return result;
+    }
+
+    public int suitDetermination(char c) {
+        switch (c) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0; // Обработка недопустимых символов
+        }
+    }
+}
