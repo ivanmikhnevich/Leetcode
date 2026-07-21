@@ -6,12 +6,12 @@ class Solution {
             if (i + 1 < s.length()) {
                 int b = suitDetermination(s.charAt(i + 1));
                 if (a < b) {
-                    result -= a; // Если текущее значение меньше следующего, вычитаем
+                    result -= a;
                 } else {
-                    result += a; // Иначе добавляем
+                    result += a;
                 }
             } else {
-                result += a; // Добавляем последнее значение
+                result += a;
             }
         }
         return result;
